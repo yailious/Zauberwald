@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Test zu Abenteuer im Zauberwald</title>
+<style>
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 20px;
+        max-width: 800px;
+        margin: auto;
+        background-color: #f0f8ff;
+        padding: 20px;
+    }
+    h1, h2 {
+        text-align: center;
+    }
+    /* Frageblock 50% größer */
+    .question p {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+    /* Antwortoptionen 50% größer */
+    label {
+        cursor: pointer;
+        display: inline-block;
+        margin-bottom: 12px;
+        font-size: 1.5em;
+    }
+    /* Größere Radio-Buttons für Handy */
+    input[type="radio"] {
+        width: 28px;
+        height: 28px;
+        transform: scale(1.5);
+        vertical-align: middle;
+        margin-right: 10px;
+        accent-color: #0066cc;
+    }
+    /* Buttons doppelt so groß */
+    button {
+        font-size: 2em;      /* Schrift doppelt so groß */
+        padding: 20px 40px;  /* mehr Fläche */
+        margin-top: 20px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #ffcc66;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #ffb733;
+    }
+</style>
+</head>
+<body>
+
+<h1>Test zu Abenteuer im Zauberwald</h1>
+<div id="quiz-container"></div>
+
+<script>
+// --- Fragenliste ---
+const questions = [
+    {q:"Was war der Lieblingsort der Prinzessin?",options:["Die Schatzkammer","Der Schlossbalkon","Der Garten mit vielen bunten Blumen","Die Schlossküche"],answer:2},
+    {q:"Wodurch fiel der besondere Schmetterling auf?",options:["Er war riesig und schwarz","Er hatte Flügel in Rot, Blau, Violett und Silber mit goldenen Punkten","Er sprach mit Ayana","Er flatterte gar nicht"],answer:1},
+    {q:"Welche Tiere begegneten der Prinzessin zuerst im Wald?",options:["Ein Reh, ein Fuchs, ein Hase und ein Eichhörnchen","Ein Wolf, ein Adler und eine Schlange","Nur Vögel","Zwei Schmetterlingswesen"],answer:0},
+    {q:"Wer war Tilly?",options:["Ein winziger Drache mit Schmetterlingsflügeln","Ein sprechender Vogel","Ein Glitzer-Einhorn","Ein Zauberer"],answer:0},
+    {q:"Was war die besondere Aufgabe des goldenen Löwen?",options:["Den Wald am Tag zu beschützen","Regen zu bringen","Den Wald zu heilen","Schätze zu bewachen"],answer:0},
+    {q:"Warum wollte die Hexe den Glitzer der Prinzessin haben?",options:["Um den Wald zu verzaubern","Um wieder jung und schön zu werden","Um die Tiere zu kontrollieren","Um das Einhorn zu ködern"],answer:1},
+    {q:"Was lehrt die Wahl der dritten Pfütze?",options:["Wahre Schönheit ist wichtiger als Mut","Wahres Glück kommt vom Herzen und echten Werten","Man sollte immer das Größte nehmen","Glitzer ist das Wichtigste"],answer:1},
+    {q:"Was tat die Prinzessin, um dem Igel zu helfen?",options:["Sie sang ein Lied","Sie zog vorsichtig die Dornen mit einem Stock auseinander","Sie schnitt den Busch um","Sie trug den Igel zum Teich"],answer:1},
+    {q:"Was sind die zentralen Werte der Geschichte?",options:["Mut, Hilfsbereitschaft, Herzvertrauen","Reichtum, Schönheit, Ruhm","Zauber, Magie, Macht","Rennen, Springen, Fliegen"],answer:0},
+    {q:"Was symbolisieren der Talisman und die goldene Kette?",options:["Reichtum und Macht","Erinnerung daran, dass wahre Kraft im Herzen liegt","Magie zum Zaubern","Tiere anlocken"],answer:1}
+];
+
+let currentQuestion = -1;
+let userAnswers = [];
+const container = document.getElementById('quiz-container');
+
+// Intro-Seite
+function showIntro() {
+    container.innerHTML = `
+        <h2>Hallo mutige Heldin!</h2>
+        <p style="font-size:1.5em;">Bist du bereit für dein Quiz? Du bekommst nacheinander 10 Fragen gestellt. Klicke auf <b>Start</b>, um zu beginnen!</p>
+        <button onclick="nextQuestion()">Start</button>
+    `;
+}
+
+// Frage anzeigen
+function showQuestion(index) {
+    let q = questions[index];
+    let optionsHTML = q.options.map((opt, i) => `
+        <div>
+            <label>
+                <input type="radio" name="question${index}" value="${i}">
+                ${opt}
+            </label>
+        </div>
+    `).join("");
+    container.innerHTML = `
+        <div class="question">
+            <h2>Frage ${index+1} von ${questions.length}</h2>
+            <p>${q.q}</p>
+            ${optionsHTML}
+        </div>
+        <button onclick="saveAnswerAndNext()">Weiter</button>
+    `;
+}
+
+// Antwort speichern und weiter
+function saveAnswerAndNext() {
+    let selected = document.querySelector(`input[name="question${currentQuestion}"]:checked`);
+    if (!selected) {
+        alert("Bitte wähle eine Antwort aus!");
+        return;
+    }
+    userAnswers[currentQuestion] = parseInt(selected.value);
+    nextQuestion();
+}
+
+// Nächste Frage oder Ergebnis
+function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+        showQuestion(currentQuestion);
+    } else {
+        showResults();
+    }
+}
+
+// Ergebnis anzeigen (ohne richtige/falsche Antworten)
+function showResults() {
+    let score = 0;
+    questions.forEach((q, i) => {
+        if (userAnswers[i] === q.answer) score++;
+    });
+    let percent = Math.round((score / questions.length) * 100);
+
+    let resultsHTML = `<h2>Ergebnis</h2>
+        <p style="font-size:1.5em;"><strong>Punkte:</strong> ${score} von ${questions.length}</p>
+        <p style="font-size:1.5em;"><strong>Prozent:</strong> ${percent}%</p>`;
+
+    if (percent >= 80) {
+        resultsHTML += `<p style="color:green; font-weight:bold; font-size:1.5em;">BRAVO – Tolle Leistung!</p>`;
+    } else if (percent >= 60) {
+        resultsHTML += `<p style="color:orange; font-weight:bold; font-size:1.5em;">Gute Leistung!</p>`;
+    } else {
+        resultsHTML += `<p style="color:red; font-weight:bold; font-size:1.5em;">OK – du musst es nochmals versuchen.</p>`;
+    }
+    resultsHTML += `<button onclick="location.reload()">Nochmal spielen</button>`;
+
+    container.innerHTML = resultsHTML;
+}
+
+showIntro();
+</script>
+
+</body>
+</html>
