@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz zu Ayanas Abenteuer im Zauberwald</title>
+<style>
+    /* --- DESIGN ÜBERNAHME VON INDEX.HTML --- */
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 20px;
+        color: #333;
+        background-color: #fdf0f6; /* Ayana Hintergrund */
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+    }
+
+    /* Der weiße Karten-Container */
+    #quiz-wrapper {
+        width: 100%;
+        max-width: 800px;
+        background-color: #fff;
+        padding: 30px;
+        box-shadow: 0 0 15px rgba(128, 0, 128, 0.15); /* Violetter Schatten */
+        border-radius: 15px;
+        margin-top: 20px;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        text-align: center;
+        color: #8e24aa; /* Ayana Violett */
+        font-family: Verdana, sans-serif;
+        border-bottom: 3px solid #ce93d8;
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+    }
+
+    h2 {
+        color: #4a148c; /* Dunkleres Violett */
+        text-align: center;
+    }
+
+    /* Frageblock */
+    .question p {
+        font-size: 1.3em;
+        margin-bottom: 25px;
+        line-height: 1.5;
+        font-weight: bold;
+    }
+
+    /* Antwortoptionen */
+    label {
+        cursor: pointer;
+        display: block; /* Untereinander für bessere Lesbarkeit am Handy */
+        margin-bottom: 15px;
+        font-size: 1.1em;
+        padding: 10px;
+        border-radius: 8px;
+        transition: background-color 0.2s;
+    }
+
+    label:hover {
+        background-color: #f3e5f5; /* Helles Lila beim Drüberfahren */
+    }
+
+    /* Größere Radio-Buttons in Pink */
+    input[type="radio"] {
+        width: 24px;
+        height: 24px;
+        transform: scale(1.3);
+        vertical-align: middle;
+        margin-right: 15px;
+        accent-color: #d81b60; /* Ayana Pink */
+    }
+
+    /* Buttons im Ayana-Stil (Gradient) */
+    button {
+        font-size: 1.5em;
+        padding: 15px 50px;
+        margin-top: 30px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        
+        /* Der Verlauf von der Index-Seite */
+        background: linear-gradient(45deg, #ec407a, #ab47bc); 
+        color: white;
+        
+        border: none;
+        border-radius: 50px; /* Runde Buttons */
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(233, 30, 99, 0.4);
+        transition: transform 0.2s;
+    }
+
+    button:hover {
+        background: linear-gradient(45deg, #d81b60, #8e24aa);
+        transform: scale(1.05);
+    }
+
+    /* Link zurück zum Hauptmenü (falls gewünscht am Ende) */
+    .home-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #8e24aa;
+        text-decoration: none;
+        font-size: 1em;
+    }
+</style>
+</head>
+<body>
+
+<div id="quiz-wrapper">
+    <h1>Quiz zu Ayanas Abenteuer</h1>
+    <div id="quiz-container"></div>
+</div>
+
+<script>
+// --- Fragenliste (Identisch gelassen, nur Design drumherum geändert) ---
+const questions = [
+    // 1. Garten
+    {
+        q: "Wo spielt Ayana am liebsten?",
+        options: ["In der Küche", "Im Garten", "Auf dem Turm"],
+        answer: 1
+    },
+    // 2. Tiere zuerst
+    {
+        q: "Welche Tiere begegneten der Prinzessin zuerst im Wald?",
+        options: ["Ein Reh, ein Fuchs, ein Hase und ein Eichhörnchen", "Ein Wolf, ein Adler und eine Schlange", "Nur Vögel", "Zwei Schmetterlingswesen"],
+        answer: 0
+    },
+    // 3. Nuss
+    {
+        q: "Wem gibt Ayana die Nuss?",
+        options: ["Dem Eichhörnchen", "Dem Hasen", "Dem Fuchs"],
+        answer: 0
+    },
+    // 4. Schmetterling (Einfach)
+    {
+        q: "Ayana sieht ein Tier. Es ist bunt. Was ist es?",
+        options: ["Ein Hund", "Ein Schmetterling", "Eine Katze"],
+        answer: 1
+    },
+    // 5. Schmetterling (Detail)
+    {
+        q: "Wodurch fiel der besondere Schmetterling auf?",
+        options: ["Er war riesig und schwarz", "Er hatte Flügel in Rot, Blau, Violett und Silber mit goldenen Punkten", "Er sprach mit Ayana", "Er flatterte gar nicht"],
+        answer: 1
+    },
+    // 6. Tilly
+    {
+        q: "Wer ist Tilly?",
+        options: ["Ein bunter Vogel", "Ein alter Mann", "Ein kleiner Drache"],
+        answer: 2
+    },
+    // 7. Baum Hilfe
+    {
+        q: "Ayana klettert auf einen Baum. Wem hilft sie?",
+        options: ["Einem kleinen Vogel", "Einer kleinen Katze", "Einem kleinen Affen"],
+        answer: 0
+    },
+    // 8. Igel Identifikation
+    {
+        q: "Wer steckt im Dornenbusch fest?",
+        options: ["Ein Bär", "Ein Igel", "Ein Wolf"],
+        answer: 1
+    },
+    // 9. Igel Hilfe (Handlung)
+    {
+        q: "Was tat die Prinzessin, um dem Igel zu helfen?",
+        options: ["Sie sang ein Lied", "Sie zog vorsichtig die Dornen mit einem Stock auseinander", "Sie schnitt den Busch um", "Sie trug den Igel zum Teich"],
+        answer: 1
+    },
+    // 10. Hirsch
+    {
+        q: "Was leuchtet im Geweih vom Hirsch?",
+        options: ["Sterne", "Kerzen", "Lampen"],
+        answer: 0
+    },
+    // 11. Löwe Aufgabe
+    {
+        q: "Was war die besondere Aufgabe des goldenen Löwen?",
+        options: ["Den Wald am Tag zu beschützen", "Regen zu bringen", "Den Wald zu heilen", "Schätze zu bewachen"],
+        answer: 0
+    },
+    // 12. Löwe Geschenk
+    {
+        q: "Was schenkt der Löwe Ayana?",
+        options: ["Einen roten Hut", "Einen blauen Stein", "Eine goldene Kette"],
+        answer: 2
+    },
+    // 13. Hexe Was
+    {
+        q: "Was will die Hexe haben?",
+        options: ["Den Glitzer von Ayana", "Die Schuhe von Ayana", "Das Kleid von Ayana"],
+        answer: 0
+    },
+    // 14. Hexe Warum (Nachdenkfrage)
+    {
+        q: "Nachdenkfrage: Die Hexe ist böse. Warum?",
+        options: ["Sie findet sich nicht schön.", "Sie hat Hunger.", "Sie mag keine Kinder."],
+        answer: 0
+    },
+    // 15. Rettung
+    {
+        q: "Wer rettet Ayana vor der Hexe?",
+        options: ["Die Waldtiere", "Der goldene Löwe", "Die Eltern"],
+        answer: 0
+    },
+    // 16. Moral/Lehre der Pfütze
+    {
+        q: "Was lehrt die Wahl der dritten Pfütze?",
+        options: ["Wahre Schönheit ist wichtiger als Mut", "Wahres Glück kommt vom Herzen und echten Werten", "Man sollte immer das Größte nehmen", "Glitzer ist das Wichtigste"],
+        answer: 1
+    },
+    // 17. Heimweg
+    {
+        q: "Wer bringt Ayana nach Hause?",
+        options: ["Der Hirsch", "Das Einhorn", "Der Löwe"],
+        answer: 1
+    },
+    // 18. Angst (Nachdenkfrage)
+    {
+        q: "Nachdenkfrage: Ayana klettert auf den hohen Baum. Hat sie Angst?",
+        options: ["Nein, sie klettert gerne.", "Ja, aber sie ist mutig.", "Ja, sie läuft schnell weg."],
+        answer: 1
+    },
+    // 19. Werte
+    {
+        q: "Was sind die zentralen Werte der Geschichte?",
+        options: ["Mut, Hilfsbereitschaft, Herzvertrauen", "Reichtum, Schönheit, Ruhm", "Zauber, Magie, Macht", "Rennen, Springen, Fliegen"],
+        answer: 0
+    },
+    // 20. Symbolik
+    {
+        q: "Was symbolisieren der Talisman und die goldene Kette?",
+        options: ["Reichtum und Macht", "Erinnerung daran, dass wahre Kraft im Herzen liegt", "Magie zum Zaubern", "Tiere anlocken"],
+        answer: 1
+    }
+];
+
+let currentQuestion = -1;
+let userAnswers = [];
+const container = document.getElementById('quiz-container');
+
+// Intro-Seite
+function showIntro() {
+    container.innerHTML = `
+        <h2 style="color: #8e24aa;">Hallo mutige Heldin!</h2>
+        <p style="font-size:1.3em; text-align: center;">Bist du bereit für dein Quiz? <br>Du bekommst nacheinander ${questions.length} Fragen gestellt.<br><br>Klicke auf <b>Start</b>, um zu beginnen!</p>
+        <button onclick="nextQuestion()">Start</button>
+    `;
+}
+
+// Frage anzeigen
+function showQuestion(index) {
+    let q = questions[index];
+    let optionsHTML = q.options.map((opt, i) => `
+        <div>
+            <label>
+                <input type="radio" name="question${index}" value="${i}">
+                ${opt}
+            </label>
+        </div>
+    `).join("");
+    container.innerHTML = `
+        <div class="question">
+            <h2 style="font-size: 1.2em; color: #d81b60;">Frage ${index+1} von ${questions.length}</h2>
+            <p>${q.q}</p>
+            ${optionsHTML}
+        </div>
+        <button onclick="saveAnswerAndNext()">Weiter</button>
+    `;
+}
+
+// Antwort speichern und weiter
+function saveAnswerAndNext() {
+    let selected = document.querySelector(`input[name="question${currentQuestion}"]:checked`);
+    if (!selected) {
+        alert("Bitte wähle eine Antwort aus!");
+        return;
+    }
+    userAnswers[currentQuestion] = parseInt(selected.value);
+    nextQuestion();
+}
+
+// Nächste Frage oder Ergebnis
+function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+        showQuestion(currentQuestion);
+    } else {
+        showResults();
+    }
+}
+
+// Ergebnis anzeigen
+function showResults() {
+    let score = 0;
+    questions.forEach((q, i) => {
+        if (userAnswers[i] === q.answer) score++;
+    });
+    let percent = Math.round((score / questions.length) * 100);
+
+    let resultsHTML = `<h2>Ergebnis</h2>
+        <p style="font-size:1.5em; text-align:center;"><strong>Punkte:</strong> ${score} von ${questions.length}</p>
+        <p style="font-size:1.5em; text-align:center;"><strong>Prozent:</strong> ${percent}%</p>`;
+
+    if (percent >= 80) {
+        resultsHTML += `<p style="color:#2e7d32; font-weight:bold; font-size:1.5em; text-align:center;">BRAVO – Tolle Leistung! 🌟</p>`;
+    } else if (percent >= 60) {
+        resultsHTML += `<p style="color:#ef6c00; font-weight:bold; font-size:1.5em; text-align:center;">Gute Leistung! 👍</p>`;
+    } else {
+        resultsHTML += `<p style="color:#c62828; font-weight:bold; font-size:1.5em; text-align:center;">Das schaffst du noch besser! Versuch es nochmal. 💪</p>`;
+    }
+    
+    resultsHTML += `<button onclick="location.reload()">Nochmal spielen</button>`;
+    
+    // Zurück zur Hauptseite Button
+    resultsHTML += `<a href="index.html" class="home-link">Zurück zur Startseite</a>`;
+
+    container.innerHTML = resultsHTML;
+}
+
+showIntro();
+</script>
+
+</body>
+</html>
