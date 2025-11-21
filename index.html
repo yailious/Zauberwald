@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayanas Abenteuer im Zauberwald - Ein fantastisches Märchen</title>
+    <style>
+        /* --- INTERNES CSS (STYLE) --- */
+
+        /* Allgemeine Stile */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fdf0f6; /* Leichtes Rosa/Violett als Hintergrund */
+            margin: 0;
+            padding: 15px; 
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Zentriert Inhalt horizontal */
+            min-height: 100vh;
+            flex-direction: column; 
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 800px; 
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(128, 0, 128, 0.15); /* Violetter Schatten */
+            margin-top: 0; 
+            margin-bottom: 20px;
+            border-radius: 0 0 15px 15px; 
+            box-sizing: border-box;
+        }
+
+        /* Überschrift H1 - Violett/Glitzer-Stil */
+        .buch-ueberschrift {
+            font-family: Verdana, sans-serif;
+            font-size: 24pt; 
+            font-weight: bold;
+            color: #8e24aa; /* Kräftiges Violett */
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #ce93d8; /* Helles Lila */
+            padding-bottom: 10px;
+        }
+
+        /* Bild-Styling */
+        .header-cover {
+            display: block;
+            width: 100%;
+            max-width: 400px; 
+            height: auto;
+            margin: 20px auto 30px auto; 
+            box-shadow: 0 10px 20px rgba(142, 36, 170, 0.3); /* Violetter Schatten */
+            border-radius: 15px;
+        }
+
+        /* Text-Absätze */
+        .beschreibung p {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 12pt;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Audio Player - Volle Breite */
+        audio {
+            width: 100%; 
+            display: block; 
+            margin-bottom: 20px;
+            border-radius: 30px; /* Runde Ecken für den Player */
+        }
+        
+        .audio-label {
+            font-weight: bold;
+            color: #8e24aa;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* Links Allgemein */
+        .links-bereich a,
+        .kauf-links a,
+        .blog-links a {
+            display: inline;
+            color: #d81b60; /* Pink */
+            padding: 0;
+            margin: 0 5px 0 0;
+            border-radius: 0;
+            text-decoration: underline;
+            font-weight: normal;
+            text-align: left;
+            transition: none;
+            background-color: transparent; 
+        }
+
+        /* Hover Effekte Links */
+        .links-bereich a:hover,
+        .kauf-links a:hover,
+        .blog-links a:hover {
+            color: #8e24aa; /* Violett beim Hover */
+            background-color: transparent;
+        }
+
+        /* Block-Links für Blog */
+        .blog-links a {
+            display: block; 
+            margin: 5px 0; 
+        }
+
+        /* Überschriften in den Link-Sektionen */
+        .kauf-links p,
+        .blog-links p {
+            font-weight: bold;
+            margin-top: 20px;
+            font-size: 13pt;
+            color: #4a148c; /* Dunkles Violett */
+        }
+
+        /* Quiz Bereich */
+        .quiz-bereich {
+            margin-top: 30px;
+            text-align: center;
+            padding: 20px;
+            background-color: #f3e5f5; /* Sehr helles Lila */
+            border-radius: 15px;
+            border: 2px dashed #ce93d8; 
+        }
+
+        .quiz-bereich p {
+            font-size: 13pt; 
+            font-weight: bold;
+            color: #6a1b9a; 
+        }
+
+        /* Quiz Button - Pink/Violett Verlauf */
+        .quiz-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ec407a, #ab47bc); /* Pink zu Violett */
+            color: white !important; 
+            padding: 15px 30px;
+            margin-top: 15px;
+            border-radius: 50px; 
+            text-decoration: none;
+            font-size: 16pt;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .quiz-button:hover {
+            background: linear-gradient(45deg, #d81b60, #8e24aa);
+            transform: scale(1.05);
+        }
+
+        /* Icons/Emojis etwas größer */
+        .emoji-icon {
+            font-size: 1.2em;
+        }
+
+        /* Responsive Video (falls noch benötigt, sonst optional) */
+        .video-responsive {
+            overflow: hidden;
+            padding-bottom: 56.25%;
+            position: relative;
+            height: 0;
+            margin: 20px auto; 
+            max-width: 600px; 
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .video-responsive iframe {
+            left: 0; top: 0; height: 100%; width: 100%; position: absolute; border: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <img src="Cover_Ayana_NEU.jpg" alt="Buchcover von Ayana" class="header-cover">
+
+    <main class="container">
+        <h1 class="buch-ueberschrift">Ayanas Abenteuer im Zauberwald</h1>
+        
+        <div class="beschreibung">
+            <p style="text-align: center; color: #d81b60;">
+                <strong><em>Ein fantastisches Märchen-Abenteuer für mutige Mädchen und Kinder ab 6 Jahren<br>
+                (Prinzessin, Einhorn, Hexe)</em></strong>
+            </p>
+            
+            <p>
+                👸 <strong>Das magische Märchenbuch für Mädchen: Mut, Einhorn & Abenteuer im Zauberwald!</strong><br>
+                Dieses liebevoll illustrierte Kinderbuch erzählt die Geschichte einer mutigen Prinzessin,
+                die sich verirrt und auf eine magische Heldenreise begibt. Das Märchenbuch
+                passt perfekt für Mädchen und Kinder ab 6 Jahren und beflügelt ihre Fantasie
+                mit einem unvergesslichen Abenteuer.<br>
+                Das Kinderbuch vermittelt wichtige Werte wie Mut, Freundlichkeit, Selbstvertrauen und die Lehre, dass wahre
+                Schönheit von innen kommt – gerade im Kampf gegen die eitle Hexe! 
+                Begleitet das Glitzer-Mädchen in ihrem Abenteuer im Zauberwald. Ihre fantastische Welt führt Magie
+                und Fabelwesen ein, von freundlichen Tieren, einem Drachen bis zum geheimnisvollen Einhorn. 
+                Die 15 handverlesenen Illustrationen lassen die Magie des Zauberwaldes lebendig werden, verstärken die
+                emotionale Tiefe und machen das Kinderbuch zu einem märchenhaften Prinzessinnen-Erlebnis für Mädchen.
+            </p>
+
+            <p>
+                👑 <strong>Worum geht's in "Ayanas Abenteuer im Zauberwald"?</strong><br>
+                Ein magisches Abenteuer voller Glitzer und Wunder wartet!
+                Ayana, eine mutige Prinzessin, lebt in einem glänzenden Schloss, bis sie sich im geheimnisvollen Zauberwald verirrt.
+                Dort warten nicht nur leuchtende Pilze und Käfer, sondern auch freundliche Tiere und mystische Fabelwesen. Doch eine eitle Hexe lauert im Dickicht!<br>
+                Wird Prinzessin Ayana mit der Hilfe ihres neuen Freundes Tilly, dem Schmetterlingsdrachen, ihre Ängste besiegen, Mut beweisen
+                und das magische Einhorn entdecken, um den Weg nach Hause zu finden?<br>
+                Komm mit und begleite das Glitzer-Mädchen auf diesem magischen Märchen.
+            </p>
+
+            <p>
+                🌟 <strong>Unabhängige Profi-Meinungen zum Buch</strong><br>
+                "Eine wunderschöne, altersgerechte Abenteuergeschichte mit starkem
+                emotionalem Kern, lebendiger Sprache, einprägsamen Figuren und leuchtender
+                Fantasie. Die liebevoll ausgewählten Illustrationen verstärken die emotionale
+                Tiefe und machen das Werk unvergesslich. Ideal für Kinder zwischen 6 und 8
+                Jahren."<br><br>
+                "Die Geschichte ist ein zauberhaftes Märchen mit einer fesselnden
+                Handlung, tiefen Charakteren und einer magischen Welt. Die Botschaften
+                sind klar und motivierend, und der Stil passt perfekt zur Zielgruppe. Die visuell
+                ansprechenden Bilder unterstützen die Handlung und machen die Geschichte zu
+                einem echten Highlight für junge Leser."<br><br>
+                "Ayanas Abenteuer im Zauberwald ist ein visuell ansprechendes,
+                rundum gelungenes, inspirierendes und magisches Kinderbuch für die Zielgruppe
+                der 6-8-Jährigen. Die Geschichte ist nicht nur fesselnd und fantasievoll,
+                sondern vermittelt auch auf subtile und doch klare Weise wichtige
+                Lebenslektionen über Mut, Klugheit, Freundschaft und die Bedeutung innerer
+                Werte. Es ist nicht nur ein Kinderbuch das unterhält, sondern auch nachhaltig
+                inspiriert."
+            </p>
+
+            <p>
+                🎶 <strong>Der perfekte Begleiter: Auch als Hörbuch verfügbar</strong><br>
+                Entdecken Sie das magische Abenteuer von Ayana auch als hochwertiges Hörbuch. Dieses ist
+                ideal für Kinder ab 6 Jahren, da das Hören hervorragend für
+                Vorschulkinder und Leseanfänger geeignet ist. Die Besonderheit des Hörbuchs
+                liegt darin, dass es von einem Ensemble aus verschiedenen Sprecherstimmen
+                zum Leben erweckt wird, wodurch jede Figur eine eigene Stimme erhält und das
+                Hörerlebnis eine einzigartige Tiefe gewinnt.
+            </p>
+
+            <p>
+                🎧 <strong>Ein einzigartiges Hörbuch – auch für die Toniebox</strong><br>
+                Das Hörbuch gibt’s in zwei Varianten:<br>
+                🎧 <strong>Klassisch:</strong> Mit verschiedenen Sprecherstimmen – als wärst du mitten im Abenteuer.<br>
+                🎬 <strong>Cineastisch:</strong> Mit atmosphärischer Musik, immersiven Soundeffekten und individuellen Stimmen für jede Figur.<br>
+                👶 <strong>Ideal auch für Toniebox-Nutzer:</strong> Mit einem Creative-Tonie kannst du das Hörbuch in MP3-Format einfach auf die Toniebox deines Kindes übertragen.
+            </p>
+        </div>
+
+        <div style="margin-top: 30px; margin-bottom: 30px; padding: 15px; background-color: #fce4ec; border-radius: 10px;">
+            <span class="audio-label">🎵 Hörprobe Kapitel 3 nur Stimmen:</span>
+            <audio controls preload="metadata">
+                <source src="3. Ayanas_Abenteuer_im_Zauberwald_Kapitel_3_Mutige_Ayana_und_der_Sternen-Hirsch.mp3" type="audio/mpeg">
+                Dein Browser unterstützt das Audio-Element nicht.
+            </audio>
+
+            <span class="audio-label">✨ Hörprobe Kapitel 3 cineastische Version:</span>
+            <audio controls preload="metadata">
+                <source src="3. Ayanas Abenteuer im Zauberwald - Kapitel 3 Mutige Ayana und der Sternen-Hirsch.mp3" type="audio/mpeg">
+                Dein Browser unterstützt das Audio-Element nicht.
+            </audio>
+        </div>
+
+        <div class="beschreibung">
+            <p>
+                <strong>Unabhängige Profi-Meinung zum Hörbuch:</strong><br>
+                "Sie haben ein wundervolles, professionell produziertes Hörbuch mit einer herzerwärmenden Geschichte
+                und Stimmen auf höchstem Niveau geschaffen. Was es jedoch wirklich
+                herausragend macht und von einem traditionellen Hörbuch unterscheidet, ist die cineastische
+                Ebene. Musik und Effekte sind hier kein Gimmick, sondern ein integraler Bestandteil des Storytellings. Der fundamentale
+                Unterschied ist: Ein normales Hörbuch berichtet von Magie und Freude, Ihr
+                cineastisches Hörbuch lässt das Publikum diese Dinge aktiv fühlen."
+            </p>
+            <p>
+                Entdecke die ganze Welt von Ayana und finde weitere Hörproben, indem du einfach nach: <em>easygoodies.ch Blog Ayana Zauberwald</em> suchst!
+            </p>
+        </div>
+
+        <div class="links-bereich">
+            <a href="https://www.easygoodies.ch/products/fantasy-buch-abenteuer-hoerbuch-zelda-kinder" target="_blank">Zum Hörbuch bei easygoodies.ch</a><br>
+            <a href="https://www.youtube.com/@Yal%C3%A7in-Din%C3%A7" target="_blank">Youtube-Kanal des Autors</a>
+        </div>
+
+        <div class="kauf-links">
+            <p>📖 Das Buch ist als Kindle-Edition auf Amazon sowie als Taschenbuch erhältlich. Hier geht es zu den Shops:</p>
+            <a href="#" target="_blank">Amazon</a>
+            <a href="#" target="_blank">BoD</a>
+            <a href="#" target="_blank">ExLibris</a>
+            <a href="#" target="_blank">Orellfüessli</a>
+            <a href="#" target="_blank">Thalia</a>
+            <a href="#" target="_blank">Osiander</a>
+            <a href="#" target="_blank">Morawa</a>
+        </div>
+
+        <div class="blog-links">
+            <p>✒️ Erfahre mehr über die Entstehung:</p>
+            <a href="blog1.html">Enstehung des Buchs</a>
+            <a href="blog4.html">Enstehung des Hörbuchs</a>
+            <a href="blog3.html">Mit KI zu magischen Buchillustrationen</a>
+            <a href="blog2.html">Wie die Welt von Ayana zum Leben erweckt wurde</a>
+        </div>
+        
+        <div class="quiz-bereich">
+            <p><strong>🏆 Vertiefe dein Lese-Erlebnis! <br>Teste hier spielerisch dein Wissen zu Ayanas Abenteuer. 🎯</strong></p>
+            
+            <a href="Quiz_ayana.html" class="quiz-button">
+                Zum Prinzessinnen-Quiz ✨
+            </a>
+        </div>
+    </main>
+
+</body>
+</html>
